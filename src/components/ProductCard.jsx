@@ -1,16 +1,17 @@
 import React from "react";
 
-const ProductCart = ({ data }) => {
-  const ratingArray = () => {
+const ProductCard = ({ data }) => {
+  //function for rating
+  const ratingArray = (rating) => {
     const starArray = [];
-    for (let i = 0; i < Math.floor(data.rating); i++) {
+    for (let i = 0; i < Math.floor(rating); i++) {
       starArray.push(i);
     }
     return starArray;
   };
 
   return (
-    <div className="flex flex-col gap-2 items-center w-64 pb-2  mt-20 bg-[#232323] rounded-xl  relative cursor-pointer">
+    <div className="flex flex-col gap-2 items-center w-64 pb-2 bg-[#232323] rounded-xl  relative cursor-pointer">
       <div className="text-xs bg-red-400 py-0.5 px-1 rounded-xl absolute -right-2 -top-2">
         -{data.discountPercentage}%
       </div>
@@ -20,7 +21,7 @@ const ProductCart = ({ data }) => {
         alt="product_image"
       />
       <h3 className="flex">
-        {ratingArray()?.map((rating) => (
+        {ratingArray(data.rating)?.map((rating) => (
           <svg
             className="w-4 h-4 text-yellow-300 ms-1"
             fill="currentColor"
@@ -39,4 +40,4 @@ const ProductCart = ({ data }) => {
   );
 };
 
-export default ProductCart;
+export default ProductCard;

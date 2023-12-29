@@ -1,21 +1,28 @@
 import React, { useEffect, useState } from "react";
 import Logo from "../assets/Logo.png";
 import Filters from "../components/Filters";
-import ProductCart from "../components/ProductCart";
+import ProductCard from "../components/ProductCard";
 import { useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { addAllProducts, searchProducts } from "../utils/productSlice";
 
 const Home = () => {
+  const dispatch = useDispatch();
+  const allProducts = useSelector((state) => state.product.allProducts);
   const navigate = useNavigate();
   const [filter, setFilter] = useState(false);
-  const [allProducts, setAllProducts] = useState([]);
+  const [search, setSearch] = useState("");
   const getProducts = async () => {
     const data = await fetch("https://dummyjson.com/products");
     const response = await data.json();
-    setAllProducts(response.products);
+    dispatch(addAllProducts(response.products));
   };
   useEffect(() => {
     getProducts();
   }, []);
+  useEffect(() => {
+    dispatch(searchProducts(search));
+  }, [search]);
 
   const handleClick = (id) => {
     console.log("clicked" + id);
@@ -25,10 +32,13 @@ const Home = () => {
     <div className="px-12 py-3 static">
       <div className="flex justify-between items-center ">
         <img src={Logo} width={60} height={60} className="cursor-pointer" />
-        <div className="flex gap-1 items-center bg-[#696969] px-2 py-0.5 w-72 rounded-md ">
+        <div className="flex gap-1 items-center bg-[#696969] px-2 py-0.5 w-96 rounded-md ">
           <input
+            type="text"
+            value={search}
             className="bg-inherit w-full focus:outline-none py-1"
             placeholder="Search Products.."
+            onChange={(e) => setSearch(e.target.value)}
           />
           <i className="ri-search-2-line cursor-pointer"></i>
         </div>
@@ -43,12 +53,16 @@ const Home = () => {
           {filter ? "Hide Filters" : "Show Filters"}
         </h1>
         <div className="flex gap-5">
-          {filter && <Filters className="flex-[0.2]" />}
-          <div className="flex-[1] flex flex-wrap justify-between">
+          {filter && (
+            <div className="flex-[0.2] mt-24">
+              <Filters />
+            </div>
+          )}
+          <div className="flex-[1.5] flex gap-5 flex-wrap justify-between">
             {allProducts.length > 0 &&
               allProducts.map((product) => (
                 <div key={product.id} onClick={() => handleClick(product.id)}>
-                  <ProductCart data={product} />
+                  <ProductCard data={product} />
                 </div>
               ))}
           </div>
