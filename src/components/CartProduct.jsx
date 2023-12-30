@@ -13,7 +13,7 @@ const CartProduct = ({ data }) => {
     <>
       <div className="flex justify-between ">
         <i
-          className="ri-close-line cursor-pointer"
+          className="ri-close-line cursor-pointer text-[#ef271b]"
           onClick={handleRemoveFromCart}
         ></i>
         <img alt="product_image" className="w-32 h-20 " src={data.thumbnail} />

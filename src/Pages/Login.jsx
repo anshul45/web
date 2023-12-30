@@ -1,6 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import Logo from "../assets/Logo.png";
 const Login = () => {
+  const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const handleSubmit = async () => {
@@ -13,6 +15,8 @@ const Login = () => {
       }),
     });
     const data = await response.json();
+    localStorage.setItem("auth_token", data.token);
+    navigate("/");
   };
   return (
     <div className="flex flex-col justify-center items-center gap-8 h-screen">
