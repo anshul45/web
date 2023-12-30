@@ -17,7 +17,7 @@ const ProductCard = ({ data }) => {
       </div>
       <img
         className="rounded-tl-xl w-full h-52"
-        src={data.images[0]}
+        src={data.thumbnail}
         alt="product_image"
       />
       <h3 className="flex">

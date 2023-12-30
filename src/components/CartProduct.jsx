@@ -1,34 +1,26 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import { removeFromCart } from "../utils/cartSlice";
 
-const CartProduct = () => {
-  const data = {
-    id: 1,
-    title: "iPhone 9",
-    description: "An apple mobile which is nothing like apple",
-    price: 549,
-    discountPercentage: 12.96,
-    rating: 4.69,
-    stock: 94,
-    brand: "Apple",
-    category: "smartphones",
-    thumbnail: "https://i.dummyjson.com/data/products/1/thumbnail.jpg",
-    images: [
-      "https://i.dummyjson.com/data/products/1/1.jpg",
-      "https://i.dummyjson.com/data/products/1/2.jpg",
-      "https://i.dummyjson.com/data/products/1/3.jpg",
-      "https://i.dummyjson.com/data/products/1/4.jpg",
-      "https://i.dummyjson.com/data/products/1/thumbnail.jpg",
-    ],
+const CartProduct = ({ data }) => {
+  const dispatch = useDispatch();
+
+  const handleRemoveFromCart = () => {
+    dispatch(removeFromCart(data.id));
   };
+
   return (
     <>
-      <div className="flex justify-between items-center">
-        <i class="ri-close-line"></i>
-        <img alt="product_image" className="w-32 h-20" src={data?.thumbnail} />
-        <h1>{data.title}</h1>
-        <h1>{data.price}</h1>
-        <div>qua</div>
-        <h1>subtotal</h1>
+      <div className="flex justify-between ">
+        <i
+          className="ri-close-line cursor-pointer"
+          onClick={handleRemoveFromCart}
+        ></i>
+        <img alt="product_image" className="w-32 h-20 " src={data.thumbnail} />
+        <h1 className="w-14">{data.title}</h1>
+        <h1 className="w-12">{data.price}</h1>
+        <div className="w-12">{data?.qty}</div>
+        <h1 className="w-12">{data.price * data?.qty}</h1>
       </div>
     </>
   );
