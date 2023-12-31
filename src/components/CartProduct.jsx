@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { removeFromCart } from "../utils/cartSlice";
 
@@ -11,7 +11,7 @@ const CartProduct = ({ data }) => {
 
   return (
     <>
-      <div className="flex justify-between ">
+      <div className="flex justify-between items-center">
         <i
           className="ri-close-line cursor-pointer text-[#ef271b]"
           onClick={handleRemoveFromCart}

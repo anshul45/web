@@ -10,6 +10,7 @@ import { store } from "./utils/store.js";
 import SingleProduct from "./Pages/SingleProduct.jsx";
 import Header from "./components/Header.jsx";
 import Cart from "./Pages/Cart.jsx";
+import PrivateRoutes from "./utils/privateRoutes.jsx";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -17,10 +18,12 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <BrowserRouter>
         <Header />
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route element={<PrivateRoutes />}>
+            <Route path="/" element={<Home />} />
+            <Route path="/cart" element={<Cart />} />
+            <Route path="/product/:id" element={<SingleProduct />} />
+          </Route>
           <Route path="/login" element={<Login />} />
-          <Route path="/product/:id" element={<SingleProduct />} />
-          <Route path="/cart" element={<Cart />} />
         </Routes>
       </BrowserRouter>
     </Provider>

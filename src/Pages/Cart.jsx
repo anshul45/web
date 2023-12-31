@@ -5,6 +5,10 @@ import { Link } from "react-router-dom";
 
 const Cart = () => {
   const cartData = useSelector((store) => store.cart.cartData);
+
+  const totalPrice = cartData.reduce((total, product) => {
+    return total + product.price * product.qty;
+  }, 0);
   return (
     <>
       {cartData.length > 0 ? (
@@ -21,6 +25,11 @@ const Cart = () => {
             {cartData.map((data) => (
               <CartProduct key={data.id} data={data} />
             ))}
+          </div>
+          <div className="flex items-center justify-center gap-52 mt-5">
+            <div className="text-green-300 font-semibold text-2xl">
+              Subtotal: {totalPrice}
+            </div>
           </div>
         </div>
       ) : (
